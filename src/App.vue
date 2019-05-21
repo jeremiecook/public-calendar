@@ -5,8 +5,14 @@
   </div>
 </template>
 
-<script>
+<style lang="scss">
+html {
+    background: #F5F3F0;
+    font-family: "Source Sans Pro";
+}
+</style>
 
+<script>
 import MonthesCarousel from './components/MonthesCarousel'
 
 export default {

@@ -1,6 +1,7 @@
 <template>
     <div class="month">
         <calendar
+          :firstDayOfWeek="2"
           :eventCategories="eventCategories"
           :events="events"
           ref="calendar"
@@ -15,8 +16,31 @@
     </div>
 </template>
 
+<style lang="scss">
+#sweetCalendar {
+
+    margin: 1em;
+
+    .body {
+    background: #FFF;
+    border-radius: 10px;
+    }
+
+    .left-arrow, .right-arrow {
+        display: none;
+    }
+}
+
+.day {
+    &.off-day {
+
+    }
+}
+</style>
+
+
 <script>
-import { Calendar } from 'vue-sweet-calendar'
+import Calendar from './Calendar'
 import 'vue-sweet-calendar/dist/SweetCalendar.css'
 
 export default {
