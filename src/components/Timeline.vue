@@ -18,6 +18,18 @@
     </div>
 </template>
 
+<style lang="sass">
+
+.owl-carousel
+
+    .owl-item
+        transition: all .8s ease;
+
+    .owl-item:not(.active)
+        opacity: .3
+
+</style>
+
 <script>
 import Month from './Month'
 import Carousel from 'vue-owl-carousel'

@@ -40,23 +40,31 @@
 }
 
 .legend {
+
+    margin-left: 3em;
+
     li {
         margin: 0;
         list-style: none;
         font-weight: 600;
         font-size: .8em;
         color: #404040;
+        line-height: 1.8em;
+        position: relative;
     }
 
 
     .color {
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        position: absolute;
+        left: -25px;
+        width: 15px;
+        height: 15px;
         background: Red;
         border-radius: 50%;
-        line-height: 20px;
+        line-height: 1.8em;
         margin-right: 10px;
+        margin-top: 4px;
     }
 }
 
