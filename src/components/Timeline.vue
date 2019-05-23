@@ -4,7 +4,7 @@
           :dots="false"
           :stagePadding="100"
           :rewind="false"
-          :responsive="{0:{items:1,nav:false},600:{items:2,nav:true},1000:{items:3,nav:true}}">
+          :responsive="{0:{items:1,nav:false},700:{items:2,nav:true},1100:{items:3,nav:true}}">
 
             <div
               v-for="(month,index) in monthes"
@@ -12,28 +12,22 @@
                 <month
                   :initialDate="month"
                   ref="calendar"
+                  :events='events'
             />
             </div>
         </carousel>
     </div>
 </template>
 
-<style lang="sass">
 
-.owl-carousel
-
-    .owl-item
-        transition: all .8s ease;
-
-    .owl-item:not(.active)
-        opacity: .3
-
-</style>
 
 <script>
-import Month from './Month'
-import Carousel from 'vue-owl-carousel'
+import axios from 'axios';
+import ICAL from 'ical.js';
 import DateTime from '../DateTime.js'
+
+import Carousel from 'vue-owl-carousel'
+import Month from './Month'
 
 export default {
 
@@ -41,9 +35,7 @@ export default {
 
     data () {
         return {
-            //today: new DateTime(),
-            //start: null,
-            //end: null,
+            events: []
         }
     },
 
@@ -68,6 +60,50 @@ export default {
         },
     },
 
+    methods: {
+        /**
+         * Parse event from ICAL Ajax response
+         */
+        parseEvents (response) {
+            console.log(response);
+            //console.log(response.data);
+            var ical = ICAL.parse(response);
+            console.log(ical);
+            var component = new ICAL.Component(ical);
+            var events = component.getAllSubcomponents('vevent');
+            for (let i = 0; i < events.length; i++) {
+                var event = new ICAL.Event(events[i]);
+                //console.log(event);
+                this.addEvent(event);
+            }
+        },
+
+        addEvent (event) {
+            var start = new Date(event.startDate.toJSDate());
+            var end = new Date(event.endDate.toJSDate());
+
+            // Moins 1 heure sur la date de fin pour tomber sur les bons jours
+            end.setHours (end.getHours() - 1);
+
+            var object = {
+                title: event.summary,
+                start: start.toString() ,
+                end: end.toString(),
+                //end: '2019-04-04',
+                categoryId: 1
+            };
+
+            console.log(object);
+            this.events.push(object);
+        },
+    },
+
+    mounted: function () {
+        axios.get("http://localhost/beta.gouv/public-calendar/proxy.php")
+             .then(response => this.parseEvents(response.data));
+    },
+
+
     components: {
         Carousel, Month
     },
@@ -85,5 +121,17 @@ export default {
     }
 
 
-}
+};
 </script>
+
+<style lang="sass">
+
+.owl-carousel
+
+    .owl-item
+        transition: opacity .8s ease
+
+    .owl-item:not(.active)
+        opacity: .3
+
+</style>
