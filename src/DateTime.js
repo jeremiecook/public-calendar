@@ -20,7 +20,8 @@ export default class DateTime {
   }
 
   getMonthName (mode = 'long') {
-    return this._date.toLocaleString('en-US', { month: mode })
+    var month = this._date.toLocaleString('fr-FR', { month: mode })
+    return month.charAt(0).toUpperCase() + month.slice(1);
   }
 
   getFullYear () {
@@ -55,6 +56,7 @@ export default class DateTime {
     this._date.setDate(date)
     return this.getTime()
   }
+
 
   isInRange (start, end, repeat = 'never') {
     let startDate = new this.constructor(start)

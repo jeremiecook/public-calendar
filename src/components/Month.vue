@@ -4,13 +4,13 @@
           :firstDayOfWeek="2"
           :eventCategories="eventCategories"
           :events="events"
+          :initialDate="initialDate"
           ref="calendar"
         />
         <div class="legend">
-            <ul>
-                <li>Project 1</li>
-                <li>Project 2</li>
-                <li>Project 3</li>
+            <ul >
+                <li v-for="(event,index) in events"
+              :key="index"><span class="color" :style="getColor(event)"></span>{{ event.title }}</li>
             </ul>
         </div>
     </div>
@@ -28,6 +28,35 @@
 
     .left-arrow, .right-arrow {
         display: none;
+    }
+
+    .header .month {
+    font-weight: 400;
+    font-size: 1.2em;
+    color: #404040;
+    text-align: center;
+    margin-bottom: 1em;
+    }
+}
+
+.legend {
+    li {
+        margin: 0;
+        list-style: none;
+        font-weight: 600;
+        font-size: .8em;
+        color: #404040;
+    }
+
+
+    .color {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: Red;
+        border-radius: 50%;
+        line-height: 20px;
+        margin-right: 10px;
     }
 }
 
@@ -50,16 +79,28 @@ export default {
       eventCategories: [
         {
           id: 1,
-          title: 'Personal',
+          title: 'Purple',
           textColor: 'white',
-          backgroundColor: 'Blue'
+          backgroundColor: '#7C6AF2'
         },
         {
           id: 2,
-          title: 'Company-wide',
+          title: 'Yellow',
           textColor: 'white',
-          backgroundColor: 'red'
-        }
+          backgroundColor: '#F2CF6A'
+        },
+        {
+          id: 3,
+          title: 'Pink',
+          textColor: 'white',
+          backgroundColor: '#E86AAB'
+        },
+        {
+          id: 4,
+          title: 'Blue',
+          textColor: 'white',
+          backgroundColor: '#6ACBF2'
+        },
       ],
       events: [
         {
@@ -93,10 +134,25 @@ export default {
       ]
     }
   },
+  props: {
+    initialDate: {
+      type: String,
+      default: null
+    },
+  },
   methods: {
     goToday() {
       this.$refs.calendar.goToday()
-    }
+    },
+
+    getColor(event) {
+        let style = {}
+        Object.assign(style, {
+            backgroundColor: this.eventCategories[event.categoryId].backgroundColor,
+          });
+
+        return style;
+    },
   },
   components: {
     Calendar

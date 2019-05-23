@@ -184,10 +184,10 @@ export default {
 
 <style lang="sass" scoped>
 
-$off-day-background-color: #E5E5E5
+$off-day-background-color: transparent
 $today-color: #008290
-$day-color: #232323
-$week-day-name-color: #404040
+$day-color: #595959
+$week-day-name-color: #595959
 $light-color: #FFF
 
 #sweetCalendar
@@ -198,9 +198,6 @@ $light-color: #FFF
 
     .header
       align-items: center
-      display: grid
-      grid-column-gap: 5px
-      grid-template-columns: repeat(3, 1fr)
 
       .month
         justify-self: center
@@ -225,11 +222,23 @@ $light-color: #FFF
       grid-template-rows: repeat(7, 1fr)
       justify-items: center
       padding: 1.5em .8em .8em
+      position: relative
+
+      &:before
+        content: "";
+        display: block;
+        width: 31%;
+        height: 100%;
+        position: absolute;
+        background: #D8D8D8;
+        right: 0;
+        opacity: .15
+        border-radius: 0 10px 10px 0;
 
       .day-name
         color: $week-day-name-color
-        font-size: .8em
-        font-weight: bold
+        font-size: .7em
+        font-weight: 600
 
       .day-container
         display: grid
@@ -257,6 +266,7 @@ $light-color: #FFF
           padding: 10px
           position: absolute
           top: 50%
+          font-weight: 500
           transform: translate(-50%, -50%)
           width: 8px
 
@@ -266,10 +276,11 @@ $light-color: #FFF
 
           &.off-day
             background-color: $off-day-background-color
-            font-weight: bold
+            font-weight: normal
+            color: #A6A6A6;
 
           span
-            font-size: .8em
+            font-size: .7em
             margin: 0
             padding: 0
             width: fit-content

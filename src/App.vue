@@ -1,25 +1,31 @@
 <template>
   <div class="public-calendar">
     <h1>Planning & disponibilités</h1>
-    <monthes-carousel />
+    <timeline
+        start="2019-06-01"
+        end="2019-12-31"
+      />
+
+<!--
+       -->
   </div>
 </template>
 
 <style lang="scss">
 html {
     background: #F5F3F0;
-    font-family: "Source Sans Pro";
+    font-family: 'Raleway';
 }
 </style>
 
 <script>
-import MonthesCarousel from './components/MonthesCarousel'
+import Timeline from './components/Timeline'
 
 export default {
   name: 'PublicCalendar',
 
   components: {
-    MonthesCarousel
+    Timeline
   }
 }
 </script>
