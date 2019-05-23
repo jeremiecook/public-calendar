@@ -65,10 +65,10 @@ export default {
          * Parse event from ICAL Ajax response
          */
         parseEvents (response) {
-            console.log(response);
+            //console.log(response);
             //console.log(response.data);
             var ical = ICAL.parse(response);
-            console.log(ical);
+            //console.log(ical);
             var component = new ICAL.Component(ical);
             var events = component.getAllSubcomponents('vevent');
             for (let i = 0; i < events.length; i++) {
@@ -93,7 +93,7 @@ export default {
                 categoryId: 1
             };
 
-            console.log(object);
+            //console.log(object);
             this.events.push(object);
         },
     },

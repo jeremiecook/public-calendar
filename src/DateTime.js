@@ -57,6 +57,10 @@ export default class DateTime {
     return this.getTime()
   }
 
+  happenThisMonth(event) {
+    return (this.getMonth() === new this.constructor(event.start).getMonth()
+         || this.getMonth() === new this.constructor(event.end).getMonth());
+  }
 
   isInRange (start, end, repeat = 'never') {
     let startDate = new this.constructor(start)

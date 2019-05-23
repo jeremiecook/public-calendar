@@ -9,7 +9,7 @@
         />
         <div class="legend">
             <ul >
-                <li v-for="(event,index) in events"
+                <li v-for="(event,index) in eventsThisMonth"
               :key="index"><span class="color" :style="getColor(event)"></span>{{ event.title }}</li>
             </ul>
         </div>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+
+import DateTime from '../DateTime.js'
 import Calendar from './Calendar'
 import 'vue-sweet-calendar/dist/SweetCalendar.css'
 
@@ -51,6 +53,18 @@ export default {
           backgroundColor: '#6ACBF2'
         },
       ],
+    }
+  },
+
+  computed: {
+    eventsThisMonth () {
+        var events = [];
+        var thisMonth = new DateTime (this.initialDate);
+        for (let event of this.events) {
+            if (thisMonth.happenThisMonth(event))
+                events.push(event);
+        }
+        return events;
     }
   },
   props: {

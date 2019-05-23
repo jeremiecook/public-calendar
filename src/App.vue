@@ -2,7 +2,7 @@
     <div class="public-calendar">
         <h1>Planning & disponibilités</h1>
         <timeline
-        start="2019-06-01"
+        start="2019-05-01"
         end="2019-12-31"
         />
     </div>
