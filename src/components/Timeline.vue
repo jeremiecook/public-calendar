@@ -61,27 +61,28 @@ export default {
     },
 
     methods: {
+
         /**
          * Parse event from ICAL Ajax response
          */
         parseEvents (response) {
-            //console.log(response);
-            //console.log(response.data);
+
+            // Parse ICal for events
             var ical = ICAL.parse(response);
-            //console.log(ical);
             var component = new ICAL.Component(ical);
             var events = component.getAllSubcomponents('vevent');
+
             for (let i = 0; i < events.length; i++) {
                 var event = new ICAL.Event(events[i]);
-                //console.log(event);
                 this.addEvent(event);
             }
         },
 
         addEvent (event) {
+
+            // Event dates
             var start = new Date(event.startDate.toJSDate());
             var end = new Date(event.endDate.toJSDate());
-
             // Moins 1 heure sur la date de fin pour tomber sur les bons jours
             end.setHours (end.getHours() - 1);
 
@@ -89,8 +90,6 @@ export default {
                 title: event.summary,
                 start: start.toString() ,
                 end: end.toString(),
-                //end: '2019-04-04',
-                categoryId: 1
             };
 
             //console.log(object);
@@ -99,7 +98,7 @@ export default {
     },
 
     mounted: function () {
-        axios.get("http://localhost/beta.gouv/public-calendar/proxy.php")
+        axios.get("https://jeremiecook.com/calendar/index.php")
              .then(response => this.parseEvents(response.data));
     },
 

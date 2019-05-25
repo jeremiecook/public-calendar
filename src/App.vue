@@ -14,6 +14,10 @@ html
     background: #F5F3F0
     font-family: 'Raleway'
 
+h1
+    font-weight: 400
+    text-align: center
+
 </style>
 
 <script>
